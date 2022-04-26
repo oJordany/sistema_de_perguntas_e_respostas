@@ -1,0 +1,198 @@
+Vamos usar o EJS, o MySQL e o Express 
+O EJS é uma tecnologia para exibir html 
+O EJS é o Embedded JavaScript templating 
+Ele é um templating engine → é um motor de templates → a função dele é desenhar HTML 
+Então a gente pode mandar o EJS desenhar um HTML em qualquer ponto da nossa aplicação 
+digamos que na nossa aplicação nós tenhamos a rota meusite/login. Então se eu quise, eu posso mandar o EJS desenhar um HTML de login nessa rota 
+Ele vai fazer o processo de renderização ==  desenhar na tela, desenhar no navegador  
+o EJS é muito mais que isso, pois ele ainda permite o uso de código JS dentro do HTML  
+Exemplo:
+    <% if(user) { %/
+    <h2><%= user.name %><h2>
+    <% } %>
+Como instalar o EJS junto com o express ?
+$ npm install express --save 
+$ npm install ejs --save 
+
+» Um pouco sobre arquivos estáticos no express:
+    > São arquivos que não são processados no seu back-end 
+    > Ex.: Arquivos CSS, Js do front-end, imagens, arquivos de dados, etc...
+    > Para usá-los nos express, colocamos uma linha de configuração 
+    > Para eu definir que eu quero usar arquivos estáticos, basta eu usar uma linha no meu index.js 
+    > O nome padrão da pasta em que eu vou guardar os meus arquivos estáticos se chama public 
+
+» Iniciando no bootstrap:
+    > Ele é um framework, uma ferramenta que a gente utiliza para facilitar a nossa vida quando estamos trabalhando com HTML e CSS 
+    > Conseguimos, graças a ele, criar interfaces bonitas e simples de uma maneira muito rápida e fácil 
+    > Usaremos o bootstrap durante todo o nosso curso 
+    > Vamos aprendendo mais sobre ele com o passar do tempo
+    > Ele traz alguns componentes muito interessantes que deixam a interface muito mais bonitas no front-end 
+    > Ele permite que nós possamos criar site responsivos 
+    > Para instalar o bootstrap: 
+        - Vamos no site do bootstrap 
+        - Clicamos em download 
+        - Na opção "Compiled CSS and JS", clicamos em download
+        - daí vai ser baixado um arquivo zip contendo o css e o js do bootstrap 
+        - O bootstrap é basicamente formado disso: css e js 
+        - Daí eu importo as pastas de css e js do meu bootstrap e coloco elas na minha pasta public, pois são arquivos estáticos 
+        - Daí eu tenho que importar o arquivo css do bootstrap no meu index.ejs que eu estiver trabalhando
+        - o nome do arquivo css do bootstrap é : 'bootstrap.min.css'. Então é só usar a tag link e importar o css mesmo sem grandes problemas 
+        - Depois, para importar o arquivo js do bootstrap, eu ainda tenho que instalar duas dependências: o jquery e o popper.
+        - mas para instalar a versão exata, dá um certo trabalho, então eu posso instalar eles apenas importando o código da tag script que tá no próprio site do bootstrap 
+        - daí eu posso importar o arquivo js a partir da tag script. O nome do arquivo js do bootstrap se chama bootstrap.min.js 
+
+» Depois, começamos a criar a página de cadastro de perguntas 
+
+» Aviso de atualização do ejs:
+    > Nova forma de utilizar partials - correção de erro:
+        - <%- include('./partials/header.ejs') %>
+
+» Vamos montar a estrutura da página inicial 
+    > Eu quero que esse header que nós construímos em perguntar.ejs fique presente em todas as páginas do meu site.
+    > Para isso, eu não preciso copiar e colar o meu código tudo de novo 
+    > Isso é uma péssima prática 
+    > o ejs tem um recurso chamada partials, qeu são partes de layouts que vc pode inserir em outros 
+    > Vc pode reutilizar essa partes de layouts 
+    > Para ficar mnais organizado, é recomendado criar uma pasta dentro de views chamada partials e adicionar todos os nossos partials que queremos reutilizar
+
+» Envio de formulário para o Node 
+    > A primeira coisa que precisamos fazer é definir com qual método o formulário vai trabalhar  
+    > Temos o método GET e o POST (GET → os dados são passados na URL | POST → os dados não são passados na URL e sim dentro da requisição, ficando "escondidos", mas não totalmente seguros, pois para garantir a segurança, é necessário criptografar esses dados)
+    > Depois precisamos definir para qual rota esse formulário vai enviar os dados 
+
+» Capturando dados de um formulário 
+    > para pegar esses dados, precisaremos instalar uma biblioteca do ejs chamada body-parser  
+
+» MySQL Workbrench
+    > Agora que já capturamos os dados do formulário, precisamos salvar eles no banco de dados
+    > Para isso, vamos usar o MySQL Workbrench 
+    > com isso, nós tiramos a necessidade de usar a linha de comando para manipular o MySQL 
+    > Ou seja, vc consegue mexer no MySQL usando uma interface gráfica usando o MySQL Workbrench 
+    > É uma ferramenta muito útil que facilita a nossa vida 
+
+» Apresentado e instalando o Sequelize 
+    > Para se trabalhar com o MySQL e outro bancos de dados SQL no Node, a melhor maneira é utilizar uma bilbioteca chamada sequelize 
+    > Com o Sequelize, vc consegue fazer qualquer manipulação no seu banco de dados SQL  
+    > Com o Sequelize, vc não consegue apenas se conectar ao MySQL, mas também a outros bancos de dados como o PostgreSQL, MariaDB, SQL Lite e SQL Server  
+    > o sequelize faz todo o processo de conexão de manipulção do banco de dados, tudo através do Node 
+    > então através de código JS vc consgue manipular o banco de dados 
+    > Não existe a necessidade de vc trabalhar com código SQL 
+    > Graças ao Sequelize, vc consegue inserir, atualizar e remover informações no banco de dados usando somente código JS
+    
+» Pode ser que quando eu vá fazer a conexão com o meu banco de dados aconteça um erro 
+    > O erro vai dizer que o cliente não possui o protocolo de autenticação necessário
+    > Esse erro acontece por um motivo: é um software que já existe há anos e ṕor mais de 25 anos o MySQL sempre usou o mesmo protocolo de autenticação. só que agr, na versões mais recentees do MySQL, esse protocolo mudou, ficou mais avançado, mais robusto 
+    > Daí, a biblioteca mysql2, que a gente instalou não atualizou esse novo protocolo de autenticação
+    > É algo relacionado a segurança, login
+    > Para resolver isso, pode-se trabalhar com a versão 5.7 do MySQL, ou vc pode fazer o seguinte:
+        > abra o MySQL Workbrench > clica no + no canto superior direito par criar um novo sql > digita o seguinte código: ALTER USER 'root'@'localhost' INDENTIFIED WITH mysql_native_password BY '123456'
+        > Essa parada a gente já tinha até feito 
+        > Então não foi nem preciso mexer em nada, pois o problema não ocorreu comigo 
+        > Daí ele não vai mais utilizar essa autenticação robusta, vai ser só uma autenticação com senha plana 
+        > Caso essa parada não tenha dado certo, tente reiniciar o computador 
+        > Caso não dê certo de nenhum jeito, a única solução é usar o MySQL na versão 5.7
+    
+» Gerando tabela com model 
+    > Nessa aula, vamos manipular o banco de dados, criando uma tabela apenas com o sequelize, sem precisar usar nenhum código SQL  
+    > Para criar a nossa tabela, vamos criar um model 
+    > O que é um model?
+        - É uma estrutura de dados que representa a nossa tabela 
+    > Vamos criar a nossa tabela então:
+        - A primeira tabela que vamos criar para o projeto é a de perguntas:
+            → ela vai ter dois campos : title e description 
+            → E a gente vai dizer isso através do JS e fazendo isso, é criada uma tabela de perguntas automaticamente no nosso banco de dados 
+            → Daí nós criamos o arquivo Pergunta.js dedicado ao nosso model de pergunta 
+            → Uma boa prática é deixar a primeira letra maiúscula, pois facilita para identificar que é um model
+
+» Salvando peguntas do banco de dados 
+    > Precisamos importar a nossa const Pergunta que a gente deixou lá no model Pergunta para o nosso index.js
+    > Aí lá no index.js, a gente vai usar um Pergunta.create().then()
+    > Dentro do create a gente passa o nosso objeto contendo o título, que foi pegado da requisição feita pelo usuário e a descrição que também foi pegada da requisição feita pelo usuário 
+    > Além disso, usamos o then para que após a execução desse código ele possa fazer o que a gente quer. E o que a gente fez foi redirecionar ele para a páginna principal '/' como resposata ao nosso usuário, usando a função redirect do express: then(() => res.redirect('/'))
+    > Repara que lá no MySQL Workbrench ele salva os dados das perguntas com um ID e um createdAt e um updatedAt 
+
+» Buscando perguntas no banco de dados:
+    > É através do model Pergunta que a gente vai listar as perguntas  
+    > Isso tudo foi feito na rota principal '/' lá no arquivo index.js 
+
+» Listando perguntas no Front-end :
+    > Adicionamos as perguntas existentes no nosso banco de dados lá no nosso front-end, na página principal '/'
+    > Usamos os recursos do ejs de pegar uma variável lá do nosso arquivo index.js 
+    > fizemos isso através de um forEach
+    > Demos também uma aparência melhor usando os recursos do bootstrap 
+    > Além disso, já criamos um botão que leva até a página de perguntas 
+    > Portanto, agora, a cada pergunta nova que é realizada, o título dela vai parar lá na página principal 
+
+» Ordenação com Sequelize:
+    > Queremos imprimir as perguntas da mais recente para a mais antiga 
+    > Queremos que a cada nova pergunta que eu criar, ela apareça no topo e não embaixo 
+    > Vamos ter que ordenar a nossa busca 
+    > Podemos ordenar por id, por título, por descrição e por data
+    > A maneira mais simples que a gente tem para ordenar da mais recente para mais antiga é ordenando por ID 
+    > Pois as mais recentes ficam com o ID maior  
+    > O código em si tá lá no index.js 
+
+» Busca condicional com Sequelize:
+    > Agora nós vamos começar a desenvolver a página de perguntas
+    > o que seria essa página de perguntas ?
+        - Vai funcionar da seguinte forma: Sempre que eu clicar no botão de responder uma pergunta, eu vou ser redirecionado para a página de pergunta daquela pergunta em específico 
+    > Bem, podemos usar o id para especificar a página da pergunta que eu quero em específico 
+    > Caso o usuário buscasse um id inválido atravé da url, eu iria redirecioná-lo para a página principal. Ex: localhost:4000/pergunta/1265565ass7e 
+        - Supondo que essa última rota que eu coloquei não existisse, ele iria redirecionar para a página principal 
+
+» Front-end da página de pergunta:
+    > Criamos a rota da página de pergunta 
+    > Dessa forma, quando eu busco por uma página com um parâmetro específico de um id, ela vai para a pergunta cujo id é o mesmo que eu busquei 
+    > Caso o id não exista, ele me redireciona para a página principal 
+
+» Perguntas com links dinâmicos:
+    > os links dos botões são gerados dinamicamente dentro do forEach 
+    > Então eles vão ser redirecionar para a própria página específica deles 
+
+» Model de resposta :
+    > Lá no database, criamos um novo model de resposta que se chama 'resposta'
+    > Lembrando: uma boa prática é colocar a inicial do model em maiúsculo 
+    
+» Formulário de Respostas:
+    > Criamos primeiro o model de Respostas (Resposta.js) lá na nossa pasta database 
+    > A nossa tabela vai ter um campo conteudo e perguntaID, visto que ela vai ser uma resposta que vai fazer referência a uma pergunta 
+    > Ou seja, estamos fazendo um relacionamento cru 
+    > Depois a gente exporta esse nosso model Resposta.js para que a gente possa usar ele lá no nosso index.js 
+
+» Campo de formulário com valor dinâmico 
+    > Na nossa rota para página de perguntas específicas, nós vamos inserir o nosso formulário de respostas para responder aquela pergunta em específico 
+    > Portanto, vamos reaproveitar a nossa variável pergunta que nós estamos usando na nossa página de pergunta.ejs para fazer um pergunta.id 
+    > Esse pergunta.id vai ser útil pq nós vamos estar respondendo uma pergunta específica de um id 
+    > Daí, nós criamos um input do tipo hidden para que ele armazene o id da pergunta, mas fique escondido. o valor dele fica sendo exatamente o nosso pergunta.id  
+
+» Respondendo perguntas  
+    > Criamos uma nova rota do tipos post que vai receber dados do formulário de respostas → por isso ela vai ser do tipo post 
+    > O nome da rota ficou como '/responder' 
+    > Usamos aquele nosso model Respostas que importamos para o index.js para criar os nossos dados da nossa tabela a partir da resposta que o usuário der 
+    > Daí, a resposta vai ser adicionada na minha tabela respostas lá no meu banco de dados com o dado da perguntaId a qual ela está referenciando
+    > Após ter adicionado o dado na tabela de repostas, ele redireciona para a mesma página da pergunta especificada através do id dela que eu já tinha pegado de res.body.pergunta 
+
+» Exibição de respostas e finalização 
+    > Aqui nó mexemos no index.js 
+        → adicionamos mais coisas na nossa rota de página de perguntas específicas 
+        → após o then e o if, nós adicionamos um Resposta.findAll() [lembrando que Resposta é um model para a tabela de respostas]
+        → Usando o findall, nós podemos pesquisar no banco de dados por perguntas onde o perguntaId(campo da tabela no banco de dados) é igual ao pergunta.id (q é o id especificado pela página de perguntas) 
+        → Daí eu tenho que ver onde o ID de perguntaId é igual ao pergunta.id 
+        → Para isso, eu uso o where, que já foi visto anteriormente. Então temos: Resposta.findall({where: {perguntaId: pergunta.id}})
+        → depois usamos .then(respostas => {
+            res.render('pergunta',{
+                pergunta: pergunta,
+                respostas: respostas  
+            })
+        })
+
+    > Depois, nó mexemos na view de perguntas específicas (pergunta.ejs)
+        → para exibir as respostas das perguntas, usamos um forEach, pois o que nós recebemos foi um Array de respostas 
+        → Daí nós colocamos cada uma dentro de um card e denrtro de um parágrafo para que fique bonito 
+        → Mas ainda temos um problema : A ordem das respostas está sendo feita da mais antiga para mais recente e nós queremos que as mais recentes fiquem no topo 
+    > Para resolver o problema, mexemos de novo no index.js:
+        → Nós usamos um order, depois do where lá onde nós estávamos pegando as respostas (Resposta.findAll())
+        → Daí ficou assim : order: [['id', 'DESC']] 
+        → Portanto ele ficou ordenando pelo id, mas em ordem decrescente agr 
+
+» FINALIZAMOSSSS !

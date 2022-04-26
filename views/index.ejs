@@ -1,0 +1,31 @@
+<!-- Perceba a praticidade em usar partials -->
+<%- include('./partials/header.ejs') %>
+<body>
+    <%- include('./partials/navbar.ejs') %>
+
+    <div class="container">
+        <hr>
+        <h1>Perguntas</h1> 
+        <hr>
+        <a href="/perguntar" class="btn btn-primary">Perguntar</a> <!-- Usando a classe btn e a btn-primary eu tranformo o meu link em um botão -->
+        <hr>
+
+        <% perguntas.forEach(pergunta => {%>
+            <br>
+            <div class="card">
+                <br>
+                <div class="card-body">
+                    <h3><%= pergunta.titulo%></h3>
+                </div>
+                <div class="card-footer">
+                    <!-- Dessa forma, cada botão irá redirecionar para a sua página em específico -->
+                    <a href='/pergunta/<%=pergunta.id%>'><button class="btn btn-primary">Responder</button></a>
+                </div>
+            </div>
+        <%})%>
+
+    </div>
+
+
+</body>
+<%- include('./partials/footer.ejs') %> 

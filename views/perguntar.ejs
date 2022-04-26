@@ -1,0 +1,40 @@
+<!-- Perceba que eu tô apenas importando as minhas partials e eu estou com o html muito mais enxuto -->
+<%- include ('./partials/header.ejs') %>
+<body>
+    <%- include('./partials/navbar.ejs') %>
+    <!-- O container é um recurso do bootstrap que serve para dar um efeito de centralização de conteúdo -->
+    <!-- então tudo que eu colocar dentro do container vai ficar centralizado e tudo que eu colocar fora vai ficar colado na borda-->
+    <div class="container"> 
+
+        <div class="card" id="formulario-pergunta">
+            <div class="card-header">
+                <h3>Realizar pergunta</h3>
+            </div>
+            <div class="card-body">
+                <!-- Deixando o formulário no estilo do bootstrap -->
+                <!-- Para fazer isso, basta eu colocar a class="form-control", que é uma classe do bootstrap que deixa os seus campos de formulários mais bonitos -->
+                <!-- Usamos o método POST aqui para que os dados não sejam mostrados na URL -->
+                <!-- Depois só precisamos indicar a rota que vai ser executada, usando o parâmetro action -->
+                <form method="post" action="/salvarpergunta"> 
+                    <label>Título</label> <!-- Serve para dar uma legenda sobre o que aquele determinado campo faz -->
+                    <input name="titulo" type="text" placeholder="Título" class="form-control">
+                    <br><label>Descrição</label>
+                    <textarea name="descricao" placeholder="Descreva sua pergunta aqui" cols="30" rows="10" class="form-control"></textarea>
+                    <!-- Criando um botão para enviar a pergunta -->
+                    <!-- Para qeu o botão fique com a aparência do bootstrap, nós podemos usar a classe btn do bootstrap, juntamente com outra classe de botões, que é a btn-success. Fica da seguinte forma: class="btn btn-success" -->
+                    <br>
+                    <button class="btn btn-primary">Perguntar</button>
+                    <!-- Agora o botão ficou azul -->
+                    <!-- Ainda tem algumas outra variações de botões. Algumas delas são: 
+                            class="btn btn-success"  → verde
+                            class="btn btn-primary"  → azul
+                            class="btn btn-danger"   → vermelha 
+                            class="btn btn-warning"  → amarela
+                    -->
+
+                </form>  
+            </div>
+        </div>
+    </div>
+</body>
+<%- include ('./partials/footer.ejs') %>
