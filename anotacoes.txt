@@ -186,7 +186,7 @@ $ npm install ejs --save
             })
         })
 
-    > Depois, nó mexemos na view de perguntas específicas (pergunta.ejs)
+    > Depois, nós mexemos na view de perguntas específicas (pergunta.ejs)
         → para exibir as respostas das perguntas, usamos um forEach, pois o que nós recebemos foi um Array de respostas 
         → Daí nós colocamos cada uma dentro de um card e denrtro de um parágrafo para que fique bonito 
         → Mas ainda temos um problema : A ordem das respostas está sendo feita da mais antiga para mais recente e nós queremos que as mais recentes fiquem no topo 
