@@ -2,7 +2,7 @@
 - 🚧 | Descrição do projeto:
   - Sistema de perguntas e respostas feito com Sequelize, Bootstrap, EJS, e JS  como aplicação dos estudos de Node
 <div align="center">
- <a href="https://159.65.237.43" alt='next'><img align=""src="https://cdn.discordapp.com/attachments/897609680073941012/963207775045971988/pngwing-edit.png" alt="clique-cursor" width="100px"></a>
+ <a href="http://159.65.237.43" alt='next'><img align=""src="https://cdn.discordapp.com/attachments/897609680073941012/963207775045971988/pngwing-edit.png" alt="clique-cursor" width="100px"></a>
  <h2>Clique aqui para acessar o projeto</h2>
 </div>
  
